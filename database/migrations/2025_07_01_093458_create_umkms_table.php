@@ -1,0 +1,27 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+
+    public function up(): void
+    {
+        Schema::create('umkms', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_pemilik_umkm');
+            $table->string('nama_umkm');
+            $table->string('no_telp_umkm');
+            $table->text('deskripsi_umkm');
+            $table->string('foto_umkm')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('umkms');
+    }
+};
