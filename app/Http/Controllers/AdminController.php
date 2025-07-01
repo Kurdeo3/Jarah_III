@@ -4,44 +4,66 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Admin;
+use App\Models\Penduduk;
 
 class AdminController extends Controller
 {
+    protected function isAuthenticated()
+    {
+        if (!Auth::guard('admin')->check()) {
+            return redirect()->route('admin.loginPage')->send();
+        }
+    }
+
     public function loginPage()
     {
         return view('admin.loginPage');
     }
 
+    public function dashboard()
+    {
+        $this->isAuthenticated(); 
+
+        $adminNow = Auth::guard('admin')->user(); 
+        $totalPenduduk = Penduduk::count();
+        $lakiLaki = Penduduk::where('jenis_kelamin_penduduk', 'Laki-laki')->count();
+        $perempuan = Penduduk::where('jenis_kelamin_penduduk', 'Perempuan')->count();
+
+        return view('admin.dashboard', [
+            'totalPenduduk' => $totalPenduduk,
+            'lakiLaki' => $lakiLaki,
+            'perempuan' => $perempuan,
+            'admin' => $adminNow,
+        ]);
+    }
+
     public function login(Request $request)
     {
-        $request->validate([
+        $credentials = $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        $credentials = $request->only('username', 'password');
-
         if (Auth::guard('admin')->attempt($credentials)) {
-            $request->session()->regenerate(); 
-
-            return redirect()->intended('/admin.dashboard'); 
+            $request->session()->regenerate();
+            return redirect()->route('admin.dashboard');
         }
 
         return back()->withErrors([
-            'username' => 'Username atau password salah',
-        ])->onlyInput('username');
+            'username' => 'Username atau password salah.',
+        ]);
     }
 
     public function logout(Request $request)
     {
-        $admin::guard('admin')->logout();
+        Auth::guard('admin')->logout();
 
-        $request->session()->invalidated();
+        $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('admin.loginPage');
+        return redirect()->route('admin.loginPage');
     }
 
     public function home(){

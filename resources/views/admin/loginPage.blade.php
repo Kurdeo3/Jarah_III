@@ -37,7 +37,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ url('/login') }}">
+            <form method="POST" action="{{ route('admin.login') }}">
                 @csrf
 
                 <div class="mb-4">

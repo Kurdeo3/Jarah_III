@@ -72,7 +72,7 @@
         <a href="#" class="nav-item">Infografis</a>
         <a href="#" class="nav-item">Berita</a>
         <a href="#" class="nav-item">Kontak</a>
-        <a href="{{ route('login') }}"
+        <a href="{{ route('admin.loginPage') }}"
             class="bg-yellow-300 text-sm px-4 py-1 rounded hover:bg-yellow-400">Login</a>
         </nav>
     </div>
