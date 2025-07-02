@@ -67,11 +67,12 @@
 
         <!-- Navigasi -->
         <nav id="navLinks" class="hidden md:flex space-x-4 text-sm font-semibold">
-        <a href="#" class="nav-item">Home</a>
-        <a href="#" class="nav-item">Profile Desa</a>
-        <a href="#" class="nav-item">Infografis</a>
-        <a href="#" class="nav-item">Berita</a>
-        <a href="#" class="nav-item">Kontak</a>
+        <a href="{{ url('/home') }}" class="nav-item">Home</a>
+        <a href="{{ url('/profile') }}" class="nav-item">Profile Desa</a>
+        <a href="{{ url('/infografis') }}" class="nav-item">Infografis</a>
+        <a href="{{ url('/umkm') }}" class="nav-item">UMKM</a>
+        <a href="{{ url('/berita') }}" class="nav-item">Berita</a>
+        <a href="{{ url('/kontak') }}" class="nav-item">Kontak</a>
         <a href="{{ route('admin.loginPage') }}"
             class="bg-yellow-300 text-sm px-4 py-1 rounded hover:bg-yellow-400">Login</a>
         </nav>
@@ -79,11 +80,12 @@
 
     <!-- Menu dropdown mobile -->
     <div id="mobileNav" class="md:hidden hidden flex-col space-y-3 px-6 pb-4 bg-white text-sm font-semibold text-black">
-        <a href="#">Home</a>
-        <a href="#">Profile Desa</a>
-        <a href="#">Infografis</a>
-        <a href="#">Berita</a>
-        <a href="#">Kontak</a>
+        <a href="{{ url('/home') }}">Home</a>
+        <a href="{{ url('/profile') }}">Profile Desa</a>
+        <a href="{{ url('/infografis') }}">Infografis</a>
+        <a href="{{ url('/umkm') }}">UMKM</a>
+        <a href="{{ url('/berita') }}">Berita</a>
+        <a href="{{ url('/kontak') }}">Kontak</a>
         <a href="{{ url('/admin.loginPage') }}"
         class="inline-block bg-yellow-300 px-4 py-1 rounded hover:bg-yellow-400">Login</a>
     </div>
@@ -228,7 +230,7 @@
         <h2 class="text-3xl font-bold text-green-800">PETA JARAH III</h2>
         </div>
         <p class="text-sm text-gray-600 mb-6">Menampilkan Peta Desa Jarah III</p>
-        <div class="w-full h-[450px] rounded-xl overflow-hidden shadow-lg border border-gray-200">
+        <!-- <div class="w-full h-[450px] rounded-xl overflow-hidden shadow-lg border border-gray-200">
         <iframe 
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.242173635606!2d110.6484506143213!3d-7.871349978129355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7ba86a6ebbb139%3A0xc6c4e81895a66c62!2sDusun%20Jarah%20III%2C%20Banjarejo%2C%20Tanjungsari%2C%20Gunungkidul%2C%20Daerah%20Istimewa%20Yogyakarta!5e0!3m2!1sid!2sid!4v1720104408206!5m2!1sid!2sid"
             width="100%"
@@ -238,6 +240,10 @@
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade">
         </iframe>
+        </div> -->
+        <div class="flex justify-center">
+            <img src="{{ asset('storage/Assets/PETA_JARAHIII.jpg') }}"
+                class="w-full max-w-md sm:max-w-sm md:max-w-md lg:max-w-2xl h-auto rounded-lg shadow">
         </div>
     </div>
     </section>

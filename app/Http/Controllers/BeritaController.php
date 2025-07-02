@@ -26,6 +26,12 @@ class BeritaController extends Controller
         return view('admin.berita', compact('beritas', 'admin'));
     }
 
+    public function showBeritaPage()
+    {
+        $beritas = Berita::paginate(6);
+        return view('berita', compact('beritas'));
+    }
+
     public function store(Request $request)
     {
         $this->isAuthenticated();

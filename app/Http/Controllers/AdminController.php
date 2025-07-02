@@ -22,6 +22,29 @@ class AdminController extends Controller
         return view('admin.loginPage');
     }
 
+    public function profileDesaPage()
+    {
+        return view('profile');
+    }
+
+    public function kontak()
+    {
+        return view('kontak');
+    }
+
+    public function infografisPage()
+    {
+        $totalPenduduk = Penduduk::count();
+        $lakiLaki = Penduduk::where('jenis_kelamin_penduduk', 'Laki-laki')->count();
+        $perempuan = Penduduk::where('jenis_kelamin_penduduk', 'Perempuan')->count();
+
+        return view('infografis', [
+            'totalPenduduk' => $totalPenduduk,
+            'lakiLaki' => $lakiLaki,
+            'perempuan' => $perempuan
+        ]);
+    }
+
     public function dashboard()
     {
         $this->isAuthenticated(); 

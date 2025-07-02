@@ -8,7 +8,7 @@ use App\Http\Controllers\UmkmController;
 use App\Http\Controllers\GaleriController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('/admin/loginPage', [AdminController::class, 'loginPage'])->name('admin.loginPage');
@@ -38,4 +38,10 @@ Route::post('/admin/galeri/store', [GaleriController::class, 'store'])->name('ad
 Route::put('/admin/galeri/{id}', [GaleriController::class, 'update'])->name('admin.galeri.update');
 Route::delete('/admin/galeri/destroy/{id}', [GaleriController::class, 'destroy'])->name('admin.galeri.destroy');
 //SECTION UMUM
+
 Route::get('/home', [AdminController::class, 'home'])->name('home');
+Route::get('/profile', [AdminController::class, 'profileDesaPage'])->name('profileDesaPageme');
+Route::get('/infografis', [AdminController::class, 'infografisPage'])->name('infografisPage');
+Route::get('/umkm', [UmkmController::class, 'show'])->name('show');
+Route::get('/berita', [BeritaController::class, 'showBeritaPage'])->name('showBeritaPage');
+Route::get('/kontak', [AdminController::class, 'kontak'])->name('kontak');

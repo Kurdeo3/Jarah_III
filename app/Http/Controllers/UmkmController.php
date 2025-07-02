@@ -6,6 +6,7 @@ use App\Models\Umkm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Pagination\Paginator;
 
 class UmkmController extends Controller
 {
@@ -24,6 +25,12 @@ class UmkmController extends Controller
         $admin = Auth::guard('admin')->user();
 
         return view('admin.umkm', compact('umkms', 'admin'));
+    }
+
+    public function show()
+    {
+        $umkms = Umkm::paginate(6);
+        return view('umkm', compact('umkms'));
     }
 
     public function store(Request $request)
