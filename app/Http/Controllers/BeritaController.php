@@ -32,6 +32,13 @@ class BeritaController extends Controller
         return view('berita', compact('beritas'));
     }
 
+    public function showBeritaDetailPage($id)
+    {
+
+        $findBerita = Berita::findOrFail($id);
+        return view('beritaDetail', compact('findBerita'));
+    }
+
     public function store(Request $request)
     {
         $this->isAuthenticated();

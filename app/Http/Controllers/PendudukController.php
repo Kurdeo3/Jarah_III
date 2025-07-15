@@ -25,7 +25,7 @@ class PendudukController extends Controller
     {
         $this->isAuthenticated(); 
 
-        $penduduks = Penduduk::all();
+        $penduduks = Penduduk::paginate(10);
         $admin = Auth::guard('admin')->user();
 
         return view('admin.penduduk', compact('penduduks', 'admin'));
@@ -39,7 +39,7 @@ class PendudukController extends Controller
             'nama_penduduk' => 'required|string|max:255',
             'umur_penduduk' => 'required|integer',
             'jenis_kelamin_penduduk' => 'required|in:Laki-laki,Perempuan',
-            'no_telp_penduduk' => 'nullable|string|max:15',
+            'no_telp_penduduk' => 'nullable|string',
             'alamat_penduduk' => 'required|string',
         ]);
 
@@ -60,7 +60,7 @@ class PendudukController extends Controller
             'nama_penduduk' => 'required|string|max:255',
             'umur_penduduk' => 'required|integer',
             'jenis_kelamin_penduduk' => 'required|string',
-            'no_telp_penduduk' => 'nullable|string|max:15',
+            'no_telp_penduduk' => 'nullable|string',
             'alamat_penduduk' => 'required|string',
         ]);
 

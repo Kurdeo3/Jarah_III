@@ -7,9 +7,11 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\UmkmController;
 use App\Http\Controllers\GaleriController;
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
+
+Route::get('/', [AdminController::class, 'home']);
 
 Route::get('/admin/loginPage', [AdminController::class, 'loginPage'])->name('admin.loginPage');
 Route::post('/admin/loginPage', [AdminController::class, 'login'])->name('admin.login');
@@ -43,5 +45,7 @@ Route::get('/home', [AdminController::class, 'home'])->name('home');
 Route::get('/profile', [AdminController::class, 'profileDesaPage'])->name('profileDesaPageme');
 Route::get('/infografis', [AdminController::class, 'infografisPage'])->name('infografisPage');
 Route::get('/umkm', [UmkmController::class, 'show'])->name('show');
+Route::get('/umkmDetail/{id}', [UmkmController::class, 'showUmkmDetailPage'])->name('showUmkmDetailPage');
 Route::get('/berita', [BeritaController::class, 'showBeritaPage'])->name('showBeritaPage');
+Route::get('/beritaDetail/{id}', [BeritaController::class, 'showBeritaDetailPage'])->name('showBeritaDetailPage');
 Route::get('/kontak', [AdminController::class, 'kontak'])->name('kontak');

@@ -33,6 +33,13 @@ class UmkmController extends Controller
         return view('umkm', compact('umkms'));
     }
 
+    public function showUmkmDetailPage($id)
+    {
+
+        $findUmkm = Umkm::findOrFail($id);
+        return view('umkmDetail', compact('findUmkm'));
+    }
+
     public function store(Request $request)
     {
         $this->isAuthenticated();

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
 use App\Models\Penduduk;
+use App\Models\Berita;
+use App\Models\Galeri;
 
 class AdminController extends Controller
 {
@@ -24,7 +26,8 @@ class AdminController extends Controller
 
     public function profileDesaPage()
     {
-        return view('profile');
+        $galeris = Galeri::all();
+        return view('profile', compact('galeris'));
     }
 
     public function kontak()
@@ -90,6 +93,7 @@ class AdminController extends Controller
     }
 
     public function home(){
-        return view('home');
+        $beritaTerbaru = Berita::latest()->take(3)->get();
+        return view('home', compact('beritaTerbaru'));
     }
 }

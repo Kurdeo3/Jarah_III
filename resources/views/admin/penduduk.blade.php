@@ -104,6 +104,7 @@
                         @forelse ($penduduks as $index => $penduduk)
                             <tr class="bg-white border-b">
                                 <td class="px-4 py-2">{{ $index + 1 }}</td>
+                                <!-- <td class="px-4 py-2">{{ $penduduk->id }}</td> -->
                                 <td class="px-4 py-2">{{ $penduduk->nama_penduduk }}</td>
                                 <td class="px-4 py-2">{{ $penduduk->jenis_kelamin_penduduk }}</td>
                                 <td class="px-4 py-2">{{ $penduduk->umur_penduduk }}</td>
@@ -141,6 +142,10 @@
                         @endforelse
                         </tbody>
                     </table>
+                                            <!-- Pagination -->
+                        <div class="mt-8">
+                            {{ $penduduks->links() }}
+                        </div>
                 </div>
             </div>
         </main>

@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>UMKM - Padukuhan Jarah III</title>
+    <title>{{ $findUmkm->nama_umkm }} - UMKM Padukuhan Jarah III</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
     <style>
@@ -50,6 +50,30 @@
         }
         .pagination .active .page-link {
             @apply bg-yellow-400 text-black font-bold;
+        }
+
+        .contact-btn {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+        }
+
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+        }
+
+        .whatsapp-btn:hover {
+            background: linear-gradient(135deg, #128c7e 0%, #25d366 100%);
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .footer-gradient {
@@ -197,7 +221,7 @@
 </head>
 <body class="font-sans bg-white text-gray-900">
     <!-- Header / Navbar -->
-    <header id="mainHeader" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-transparent text-white">
+    <header id="mainHeader" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 text-white bg-[#005f2f]">
         <div class="flex justify-between items-center p-4 md:p-6 max-w-7xl mx-auto">
             <!-- Logo -->
             <div class="flex items-center space-x-2">
@@ -221,7 +245,7 @@
                 <a href="{{ url('/home') }}" class="nav-item hover:text-green-700">Home</a>
                 <a href="{{ url('/profile') }}" class="nav-item hover:text-green-700">Profile Desa</a>
                 <a href="{{ url('/infografis') }}" class="nav-item hover:text-green-700">Infografis</a>
-                <a href="{{ url('/umkm') }}" class="nav-item text-green-700 font-bold">UMKM</a>
+                <a href="{{ url('/umkm') }}" class="nav-item text-black font-bold">UMKM</a>
                 <a href="{{ url('/berita') }}" class="nav-item hover:text-green-700">Berita</a>
                 <a href="{{ url('/kontak') }}" class="nav-item hover:text-green-700">Kontak</a>
                 <a href="{{ url('/admin/loginPage') }}" class="bg-yellow-300 text-sm px-4 py-1 rounded hover:bg-yellow-400">Login</a>
@@ -240,47 +264,149 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="relative h-[400px] bg-cover bg-center" style="background-image: url('storage/Assets/umkm_wallpaper.jpg');">
-        <div class="absolute inset-0 hero-overlay"></div>
-        <div class="absolute inset-0 flex items-center justify-center">
-        <div class="flex flex-col items-center">
-            <h1 class="text-5xl font-bold text-yellow-400 text-center">PRODUK UMKM</h1>
-            <h3 class="text-sm font-bold text-yellow-400 text-center mt-2">
-                Temukan berbagai UMKM unggulan di Padukuhan Jarah III. Mari bersama mendukung perekonomi lokal dengan berbelanja produk dan layanan dari warga desa kami.
-            </h3>
-        </div>
-        </div>
-    </section>
+    <!-- UMKM Detail Section -->
+    <section class="py-32 bg-gray-100">
+        <div class="max-w-6xl mx-auto px-4">
+            <!-- Breadcrumb -->
+            <nav class="flex mb-8" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                    <li class="inline-flex items-center">
+                        <a href="{{ url('/home') }}" class="text-gray-500 hover:text-green-700 text-sm">
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <a href="{{ url('/umkm') }}" class="ml-1 text-gray-500 hover:text-green-700 text-sm">
+                                UMKM
+                            </a>
+                        </div>
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                            <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="ml-1 text-gray-700 text-sm font-medium">{{ $findUmkm->nama_umkm }}</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
 
-    <!-- Produk UMKM Section -->
-    <section class="py-16 px-4 md:px-8 bg-[rgba(0,128,0,0.16)]">
-        <div class="max-w-7xl mx-auto text-center">
-            <h1 class="text-3xl md:text-4xl font-bold mb-10 text-black">PRODUK UMKM</h1>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                @foreach ($umkms as $produk)
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden text-start border border-black">
-                        <a href="{{ route('showUmkmDetailPage', $produk->id) }}"><img src="{{ asset('storage/' . $produk->foto_umkm) }}" alt="{{ $produk->nama_umkm }}" class="w-full h-48 object-cover"></a>
-                        <div class="p-4">
-                            <h3 class="font-semibold text-lg text-black mb-1">{{ $produk->nama_umkm }}</h3>
-                            <div class="flex flex-col-items gap-2 mb-2">
-                                <img src="https://img.icons8.com/parakeet-line/48/person-male.png" alt="Person Icon" class="w-5">
-                                <p class="text-xs text-gray-600">{{ $produk->nama_pemilik_umkm }}</p>
+            <!-- Main Content -->
+            <div class="bg-white shadow-xl rounded-3xl overflow-hidden">
+                <!-- Header Info -->
+                <div class="p-6 md:p-8">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+                        <div>
+                            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                                {{ $findUmkm->nama_umkm }}
+                            </h1>
+                            <div class="flex items-center gap-2 text-gray-600">
+                                <img src="https://img.icons8.com/parakeet-line/48/person-male.png" alt="Owner" class="w-5 h-5">
+                                <span class="text-lg">{{ $findUmkm->nama_pemilik_umkm }}</span>
                             </div>
-                            <div class="flex flex-col-items gap-2 mb-2">
-                                <img src="https://img.icons8.com/parakeet-line/48/phone.png" alt="Person Icon" class="w-5">
-                                <p class="text-xs text-gray-600">{{ $produk->no_telp_umkm }}</p>
-                            </div>
-                            <p class="text-xs text-gray-500 line-clamp-2">{{ $produk->deskripsi_umkm }}</p>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <a href="tel:{{ $findUmkm->no_telp_umkm }}" class="contact-btn text-white px-6 py-3 rounded-lg font-semibold text-center flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                                </svg>
+                                Hubungi
+                            </a>
+                            <a href="https://wa.me/62{{ ltrim($findUmkm->no_telp_umkm, '0') }}?text=Halo, saya tertarik dengan produk {{ $findUmkm->nama_umkm }}" 
+                                target="_blank" class="whatsapp-btn text-white px-6 py-3 rounded-lg font-semibold text-center flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                                </svg>
+                                WhatsApp
+                            </a>
                         </div>
                     </div>
-                @endforeach
-            </div>
 
-            <!-- Navigasi Halaman -->
-            <div class="mt-10">
-                {{ $umkms->links() }}
+                    <!-- Product Image -->
+                    <div class="mb-8">
+                        <img src="{{ asset('storage/' . $findUmkm->foto_umkm) }}" 
+                            alt="{{ $findUmkm->nama_umkm }}" 
+                            class="w-full max-w-4xl mx-auto h-[300px] md:h-[500px] lg:h-[600px] object-cover rounded-xl shadow-lg">
+                    </div>
+
+                    <!-- Product Info Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <!-- Contact Info Card -->
+                        <div class="info-card p-6 rounded-xl">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                                <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                                </svg>
+                                Informasi Kontak
+                            </h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://img.icons8.com/parakeet-line/48/person-male.png" alt="Owner" class="w-6 h-6">
+                                    <div>
+                                        <p class="text-sm text-gray-500">Pemilik</p>
+                                        <p class="font-medium text-gray-900">{{ $findUmkm->nama_pemilik_umkm }}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <img src="https://img.icons8.com/parakeet-line/48/phone.png" alt="Phone" class="w-6 h-6">
+                                    <div>
+                                        <p class="text-sm text-gray-500">Nomor Telepon</p>
+                                        <p class="font-medium text-gray-900">{{ $findUmkm->no_telp_umkm }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Business Info Card -->
+                        <div class="info-card p-6 rounded-xl">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                                <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd"/>
+                                    <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"/>
+                                </svg>
+                                Informasi Usaha
+                            </h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <p class="text-sm text-gray-500">Nama Usaha</p>
+                                    <p class="font-medium text-gray-900">{{ $findUmkm->nama_umkm }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Lokasi</p>
+                                    <p class="font-medium text-gray-900">Padukuhan Jarah III, Kalurahan Banjarejo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Description -->
+                    <div class="bg-gray-50 p-6 rounded-xl">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                            <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-6a1 1 0 00-1-1H9a1 1 0 00-1 1v6a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+                            </svg>
+                            Deskripsi Produk/Layanan
+                        </h3>
+                        <div class="text-gray-700 text-justify leading-relaxed">
+                            {!! nl2br(e($findUmkm->deskripsi_umkm)) !!}
+                        </div>
+                    </div>
+
+                    <!-- Back Button -->
+                    <div class="mt-8 text-center">
+                        <a href="{{ url('/umkm') }}" class="inline-flex items-center gap-2 bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+                            </svg>
+                            Kembali ke Daftar UMKM
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -397,16 +523,6 @@
 
             toggle.addEventListener("click", () => {
                 mobileNav.classList.toggle("hidden");
-            });
-
-            window.addEventListener("scroll", () => {
-                if (window.scrollY > 10) {
-                    header.classList.remove("bg-transparent", "text-white");
-                    header.classList.add("bg-white", "text-black", "shadow");
-                } else {
-                    header.classList.remove("bg-white", "text-black", "shadow");
-                    header.classList.add("bg-transparent", "text-white");
-                }
             });
         });
     </script>
