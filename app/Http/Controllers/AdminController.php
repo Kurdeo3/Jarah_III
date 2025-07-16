@@ -9,6 +9,7 @@ use App\Models\Admin;
 use App\Models\Penduduk;
 use App\Models\Berita;
 use App\Models\Galeri;
+use App\Models\Umkm;
 
 class AdminController extends Controller
 {
@@ -93,7 +94,10 @@ class AdminController extends Controller
     }
 
     public function home(){
-        $beritaTerbaru = Berita::latest()->take(3)->get();
-        return view('home', compact('beritaTerbaru'));
-    }
+    $beritaTerbaru = Berita::latest()->take(3)->get();
+    $galeriTerbaru = Galeri::latest()->take(4)->get();
+    $umkmTerbaru = Umkm::latest()->take(4)->get();
+    
+    return view('home', compact('beritaTerbaru', 'galeriTerbaru', 'umkmTerbaru'));
+}
 }

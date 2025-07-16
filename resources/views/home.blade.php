@@ -373,6 +373,109 @@
         <p class="text-sm text-white mt-4">Berita terbaru tentang Padukuhan Jarah III bisa dibaca disini</p>
         </div>
 </section>
+
+<!-- Section Galeri -->
+<section class="bg-gray-100 py-12 px-4 md:px-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-green-800">GALERI</h2>
+            <p class="mt-2 text-sm text-gray-600 max-w-lg mx-auto">
+                Dokumentasi kegiatan dan momen berharga di Padukuhan Jarah III
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            @if($galeriTerbaru->count() > 0)
+                @foreach($galeriTerbaru as $galeri)
+                    <div class="aspect-square rounded-xl overflow-hidden shadow-lg relative group">
+                            <img src="{{ asset('storage/' . $galeri->foto_galeri) }}"
+                                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                alt="{{ $galeri->title_foto_galeri }}" />
+                            <div
+                                class="absolute inset-0 bg-[rgba(0,128,0,0.65)] opacity-0 group-hover:opacity-80 transition-opacity duration-300 flex flex-col justify-center items-center text-white px-2 text-center">
+                                <h3 class="text-lg font-bold">{{ $galeri->title_foto_galeri }}</h3>
+                                <p class="text-sm">{{ \Carbon\Carbon::parse($galeri->tanggal_foto_galeri)->translatedFormat('d F Y') }}</p>
+                            </div>
+                        </div>
+                @endforeach
+            @else
+                @for($i = 1; $i <= 4; $i++)
+                    <div class="aspect-square rounded-xl overflow-hidden shadow-lg relative group">
+                        <img src="https://via.placeholder.com/300x300" 
+                             alt="Galeri {{ $i }}" 
+                             class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-[rgba(0,128,0,0.65)] opacity-0 group-hover:opacity-80 transition-opacity duration-300 flex flex-col justify-center items-center text-white px-2 text-center">
+                            <h3 class="text-lg font-bold">Galeri {{ $i }}</h3>
+                            <p class="text-sm">{{ date('d F Y') }}</p>
+                        </div>
+                    </div>
+                @endfor
+            @endif
+        </div>
+        
+        <div class="text-center mt-8">
+            <a href="{{ url('/profile') }}" 
+               class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors duration-300">
+                Lihat Semua Galeri
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Section UMKM -->
+<section class="bg-[#006400] py-12 px-4 md:px-8 text-white">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold">UMKM JARAH III</h2>
+            <p class="mt-2 text-sm max-w-lg mx-auto">
+                Produk dan layanan unggulan dari masyarakat Padukuhan Jarah III
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            @if($umkmTerbaru->count() > 0)
+                @foreach($umkmTerbaru as $umkm)
+                    <div class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                        <div class="h-48 overflow-hidden">
+                            <img src="{{ $umkm->foto_umkm ? asset('storage/' . $umkm->foto_umkm) : 'https://via.placeholder.com/300x200' }}" 
+                                alt="{{ $umkm->nama_umkm }}" 
+                                class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                        </div>
+                        <div class="p-4 mx-auto text-center">
+                            <h3 class="font-bold text-lg text-green-800 mb-2">{{ $umkm->nama_umkm }}</h3>
+                            <span class="text-sm text-gray-500">{{ $umkm->nama_pemilik_umkm }}</span>
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                @for($i = 1; $i <= 4; $i++)
+                    <div class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://via.placeholder.com/300x200" 
+                                 alt="UMKM {{ $i }}" 
+                                 class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg text-green-800 mb-2">UMKM {{ $i }}</h3>
+                            <p class="text-sm text-gray-600 mb-2">Deskripsi produk atau layanan UMKM dari masyarakat setempat</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-green-600 font-semibold">Kategori</span>
+                                <span class="text-sm text-gray-500">Pemilik</span>
+                            </div>
+                        </div>
+                    </div>
+                @endfor
+            @endif
+        </div>
+        
+        <div class="text-center mt-8">
+            <a href="{{ url('/umkm') }}" 
+               class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors duration-300">
+                Lihat Semua UMKM
+            </a>
+        </div>
+    </div>
+</section>
     
     <section class="bg-white py-12 px-4 md:px-8">
     <div class="max-w-5xl mx-auto text-center">

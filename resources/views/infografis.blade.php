@@ -5,6 +5,7 @@
     <title>Infografis - Padukuhan Jarah III</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <style>
         .transparent-header {
             background-color: transparent;
@@ -177,10 +178,76 @@
             height: 2px;
             background: #fcd34d;
         }
-        
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #166534;
+            margin-bottom: 1rem;
+            flex-shrink: 0;
+        }
+
+        .chart-wrapper {
+            flex: 1;
+            position: relative;
+            min-height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chart-canvas {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .chart-legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-shrink: 0;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+        }
+
+        .legend-text {
+            font-size: 0.9rem;
+            color: #374151;
+        }
+
         @media (max-width: 768px) {
-            .footer-section {
-                margin-bottom: 1rem;
+            .chart-container {
+                height: 350px;
+                padding: 1rem;
+            }
+            
+            .chart-legend {
+                flex-direction: column;
+                gap: 1rem;
             }
         }
     </style>
@@ -243,39 +310,57 @@
 
     <!-- Jumlah Penduduk Section -->
     <section class="py-8 px-4 md:px-8 text-black bg-gray-100">
-        <div class="max-w-xl mx-auto text-center">
-            <h1 class="text-3xl md:text-4xl font-bold mb-10">JUMLAH PENDUDUK</h1>
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-3xl md:text-4xl font-bold mb-10 text-center">JUMLAH PENDUDUK</h1>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center mb-8">
                 <!-- Total Penduduk -->
-                <div class="text-green-700 rounded-xl shadow-md py-6 px-4">
+                <div class="text-green-700 rounded-xl shadow-md py-6 px-4 bg-white">
                     <div class="flex flex-col items-center">
                         <img src="https://img.icons8.com/ios-filled/50/000000/user-group-man-man.png" class="w-10 h-10 mb-2" alt="Total Penduduk" />
                         <p class="font-bold">Total Penduduk</p>
-                        <p class="text-3xl font-bold">{{ $totalPenduduk }}</p>
+                        <p class="text-3xl font-bold" id="totalPenduduk">{{ $totalPenduduk }}</p>
                     </div>
                 </div>
 
                 <!-- Laki-laki -->
-                <div class="text-green-700 rounded-xl shadow-md py-6 px-4">
+                <div class="text-green-700 rounded-xl shadow-md py-6 px-4 bg-white">
                     <div class="flex flex-col items-center">
                         <img src="https://img.icons8.com/ios-filled/50/000000/user-male.png" class="w-10 h-10 mb-2" alt="Laki-laki" />
                         <p class="font-bold">Laki-laki</p>
-                        <p class="text-3xl font-bold">{{ $lakiLaki }}</p>
+                        <p class="text-3xl font-bold" id="lakiLaki">{{ $lakiLaki }}</p>
                     </div>
                 </div>
 
                 <!-- Perempuan -->
-                <div class="text-green-700 rounded-xl shadow-md py-6 px-4">
+                <div class="text-green-700 rounded-xl shadow-md py-6 px-4 bg-white">
                     <div class="flex flex-col items-center">
                         <img src="https://img.icons8.com/ios-filled/50/000000/user-female.png" class="w-10 h-10 mb-2" alt="Perempuan" />
                         <p class="font-bold">Perempuan</p>
-                        <p class="text-3xl font-bold">{{ $perempuan }}</p>
+                        <p class="text-3xl font-bold" id="perempuan">{{ $perempuan }}</p>
                     </div>
                 </div>
             </div>
 
-            <p class="text-sm text-gray-600 mt-6 font-medium">Data Kependudukan ini terupdate sejak <span class="font-semibold">01-01-2026</span></p>
+            <!-- Grafik Pie Chart -->
+            <div class="chart-container">
+                <h2 class="chart-title">Distribusi Penduduk Berdasarkan Jenis Kelamin</h2>
+                <div class="chart-wrapper">
+                    <canvas id="genderChart" class="chart-canvas"></canvas>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #4F46E5;"></div>
+                        <span class="legend-text">Laki-laki</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #EC4899;"></div>
+                        <span class="legend-text">Perempuan</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-sm text-gray-600 mt-6 font-medium text-center">Data Kependudukan ini terupdate sejak <span class="font-semibold">01-01-2026</span></p>
         </div>
     </section>
 
@@ -443,27 +528,79 @@
         </div>
     </footer>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const header = document.getElementById("mainHeader");
-            const navLinks = document.querySelectorAll(".nav-item");
-            const toggle = document.getElementById("toggleMenu");
-            const mobileNav = document.getElementById("mobileNav");
-
-            toggle.addEventListener("click", () => {
-                mobileNav.classList.toggle("hidden");
-            });
-
-            window.addEventListener("scroll", () => {
-                if (window.scrollY > 10) {
-                    header.classList.remove("bg-transparent", "text-white");
-                    header.classList.add("bg-white", "text-black", "shadow");
-                } else {
-                    header.classList.remove("bg-white", "text-black", "shadow");
-                    header.classList.add("bg-transparent", "text-white");
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    // Data untuk chart (ambil dari nilai yang sudah ada di HTML)
+    const lakiLakiValue = parseInt(document.getElementById('lakiLaki').textContent);
+    const perempuanValue = parseInt(document.getElementById('perempuan').textContent);
+    
+    // Konfigurasi chart
+    const ctx = document.getElementById('genderChart').getContext('2d');
+    const genderChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Laki-laki', 'Perempuan'],
+            datasets: [{
+                data: [lakiLakiValue, perempuanValue],
+                backgroundColor: [
+                    '#4F46E5', // Biru untuk laki-laki
+                    '#EC4899'  // Pink untuk perempuan
+                ],
+                borderColor: '#ffffff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: 1.2,
+            layout: {
+                padding: {
+                    top: 10,
+                    bottom: 10,
+                    left: 10,
+                    right: 10
                 }
-            });
-        });
-    </script>
+            },
+            plugins: {
+                legend: {
+                    display: false // Karena sudah ada legend custom di HTML
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.parsed;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((value / total) * 100).toFixed(1);
+                            return `${label}: ${value} (${percentage}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Script yang sudah ada untuk header
+    const header = document.getElementById("mainHeader");
+    const navLinks = document.querySelectorAll(".nav-item");
+    const toggle = document.getElementById("toggleMenu");
+    const mobileNav = document.getElementById("mobileNav");
+
+    toggle.addEventListener("click", () => {
+        mobileNav.classList.toggle("hidden");
+    });
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 10) {
+            header.classList.remove("bg-transparent", "text-white");
+            header.classList.add("bg-white", "text-black", "shadow");
+        } else {
+            header.classList.remove("bg-white", "text-black", "shadow");
+            header.classList.add("bg-transparent", "text-white");
+        }
+    });
+});
+</script>
 </body>
 </html>
