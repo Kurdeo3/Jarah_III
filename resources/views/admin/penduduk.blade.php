@@ -142,7 +142,7 @@
                         @endforelse
                         </tbody>
                     </table>
-                                            <!-- Pagination -->
+                        <!-- Pagination -->
                         <div class="mt-8">
                             {{ $penduduks->links() }}
                         </div>
@@ -152,99 +152,98 @@
     </div>
 </div>
 
-<!-- Modal Tambah Data -->
-<div id="modalTambah" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-    <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl">
-        <!-- Modal Header -->
-        <div class="bg-green-700 text-white px-6 py-4 flex justify-between items-center rounded-t-lg">
-            <h3 class="text-lg font-bold">TAMBAH DATA PENDUDUK</h3>
-            <button onclick="toggleModal(false)" class="text-xl">&times;</button>
+    <!-- Modal Tambah Data -->
+    <div id="modalTambah" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl">
+            <!-- Modal Header -->
+            <div class="bg-green-700 text-white px-6 py-4 flex justify-between items-center rounded-t-lg">
+                <h3 class="text-lg font-bold">TAMBAH DATA PENDUDUK</h3>
+                <button onclick="toggleModal(false)" class="text-xl">&times;</button>
+            </div>
+
+            <!-- Modal Form -->
+            <form action="{{ route('admin.penduduk.store') }}" method="POST" class="px-6 py-4 space-y-4">
+                @csrf
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium">Nama Penduduk</label>
+                        <input type="text" name="nama_penduduk" required class="w-full border rounded px-3 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Jenis Kelamin</label>
+                        <select name="jenis_kelamin_penduduk" required class="w-full border rounded px-3 py-2">
+                            <option value="">-- Pilih --</option>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">No Telepon</label>
+                        <input type="text" name="no_telp_penduduk" class="w-full border rounded px-3 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Usia</label>
+                        <input type="number" name="umur_penduduk" required class="w-full border rounded px-3 py-2" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Alamat</label>
+                    <textarea name="alamat_penduduk" required class="w-full border rounded px-3 py-2"></textarea>
+                </div>
+                <div class="text-sm text-gray-600 italic">*Klik tombol Simpan untuk menyimpan data Penduduk</div>
+                <div class="text-right">
+                    <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">SIMPAN</button>
+                </div>
+            </form>
         </div>
-
-        <!-- Modal Form -->
-        <form action="{{ route('admin.penduduk.store') }}" method="POST" class="px-6 py-4 space-y-4">
-            @csrf
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium">Nama Penduduk</label>
-                    <input type="text" name="nama_penduduk" required class="w-full border rounded px-3 py-2" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium">Jenis Kelamin</label>
-                    <select name="jenis_kelamin_penduduk" required class="w-full border rounded px-3 py-2">
-                        <option value="">-- Pilih --</option>
-                        <option value="Laki-laki">Laki-laki</option>
-                        <option value="Perempuan">Perempuan</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium">No Telepon</label>
-                    <input type="text" name="no_telp_penduduk" class="w-full border rounded px-3 py-2" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium">Usia</label>
-                    <input type="number" name="umur_penduduk" required class="w-full border rounded px-3 py-2" />
-                </div>
-            </div>
-            <div>
-                <label class="block text-sm font-medium">Alamat</label>
-                <textarea name="alamat_penduduk" required class="w-full border rounded px-3 py-2"></textarea>
-            </div>
-            <div class="text-sm text-gray-600 italic">*Klik tombol Simpan untuk menyimpan data Penduduk</div>
-            <div class="text-right">
-                <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">SIMPAN</button>
-            </div>
-        </form>
     </div>
-</div>
 
-<!-- Modal Update Data -->
-<div id="modalUpdate" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-    <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl">
-        <!-- Modal Header -->
-        <div class="bg-green-700 text-white px-6 py-4 flex justify-between items-center rounded-t-lg">
-            <h3 class="text-lg font-bold">UBAH DATA PENDUDUK</h3>
-            <button onclick="toggleModalUpdate(false)" class="text-xl">&times;</button>
+    <!-- Modal Update Data -->
+    <div id="modalUpdate" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl">
+            <!-- Modal Header -->
+            <div class="bg-green-700 text-white px-6 py-4 flex justify-between items-center rounded-t-lg">
+                <h3 class="text-lg font-bold">UBAH DATA PENDUDUK</h3>
+                <button onclick="toggleModalUpdate(false)" class="text-xl">&times;</button>
+            </div>
+
+            <!-- Modal Form -->
+            <form method="POST" class="px-6 py-4 space-y-4" id="formUpdatePenduduk">
+                @csrf
+                @method('PUT')
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium">Nama Penduduk</label>
+                        <input type="text" name="nama_penduduk" id="edit_nama_penduduk" required class="w-full border rounded px-3 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Jenis Kelamin</label>
+                        <select name="jenis_kelamin_penduduk" id="edit_jenis_kelamin_penduduk" required class="w-full border rounded px-3 py-2">
+                            <option value="">-- Pilih --</option>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">No Telepon</label>
+                        <input type="text" name="no_telp_penduduk" id="edit_no_telp_penduduk" class="w-full border rounded px-3 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Usia</label>
+                        <input type="number" name="umur_penduduk" id="edit_umur_penduduk" required class="w-full border rounded px-3 py-2" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Alamat</label>
+                    <textarea name="alamat_penduduk" id="edit_alamat_penduduk" required class="w-full border rounded px-3 py-2"></textarea>
+                </div>
+                <div class="text-sm text-gray-600 italic">*Klik tombol Simpan untuk menyimpan perubahan data</div>
+                <div class="text-right">
+                    <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">SIMPAN PERUBAHAN</button>
+                </div>
+            </form>
         </div>
-
-        <!-- Modal Form -->
-        <form method="POST" class="px-6 py-4 space-y-4" id="formUpdatePenduduk">
-            @csrf
-            @method('PUT')
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium">Nama Penduduk</label>
-                    <input type="text" name="nama_penduduk" id="edit_nama_penduduk" required class="w-full border rounded px-3 py-2" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium">Jenis Kelamin</label>
-                    <select name="jenis_kelamin_penduduk" id="edit_jenis_kelamin_penduduk" required class="w-full border rounded px-3 py-2">
-                        <option value="">-- Pilih --</option>
-                        <option value="Laki-laki">Laki-laki</option>
-                        <option value="Perempuan">Perempuan</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium">No Telepon</label>
-                    <input type="text" name="no_telp_penduduk" id="edit_no_telp_penduduk" class="w-full border rounded px-3 py-2" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium">Usia</label>
-                    <input type="number" name="umur_penduduk" id="edit_umur_penduduk" required class="w-full border rounded px-3 py-2" />
-                </div>
-            </div>
-            <div>
-                <label class="block text-sm font-medium">Alamat</label>
-                <textarea name="alamat_penduduk" id="edit_alamat_penduduk" required class="w-full border rounded px-3 py-2"></textarea>
-            </div>
-            <div class="text-sm text-gray-600 italic">*Klik tombol Simpan untuk menyimpan perubahan data</div>
-            <div class="text-right">
-                <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">SIMPAN PERUBAHAN</button>
-            </div>
-        </form>
     </div>
-</div>
-
 
 <!-- Script Modal Create -->
 <script>

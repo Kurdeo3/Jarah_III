@@ -115,63 +115,63 @@
     </div>
 </div>
 
-<!-- Modal Tambah Galeri -->
-<div id="modalTambah" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-    <div class="bg-white rounded-lg shadow-lg w-full max-w-lg">
-        <div class="bg-green-700 text-white px-6 py-4 flex justify-between items-center rounded-t-lg">
-            <h3 class="text-lg font-bold">TAMBAH FOTO GALERI</h3>
-            <button onclick="toggleModal(false)" class="text-xl">&times;</button>
+    <!-- Modal Tambah Galeri -->
+    <div id="modalTambah" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-lg">
+            <div class="bg-green-700 text-white px-6 py-4 flex justify-between items-center rounded-t-lg">
+                <h3 class="text-lg font-bold">TAMBAH FOTO GALERI</h3>
+                <button onclick="toggleModal(false)" class="text-xl">&times;</button>
+            </div>
+            <form action="{{ route('admin.galeri.store') }}" method="POST" enctype="multipart/form-data" class="px-6 py-4 space-y-4">
+                @csrf
+                <div>
+                    <label class="block text-sm font-medium">Judul Foto</label>
+                    <input type="text" name="title_foto_galeri" required class="w-full border rounded px-3 py-2" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Tanggal</label>
+                    <input type="date" name="tanggal_foto_galeri" required class="w-full border rounded px-3 py-2" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Unggah Foto</label>
+                    <input type="file" name="foto_galeri" accept="image/*" required class="w-full border rounded px-3 py-2" />
+                </div>
+                <div class="text-right">
+                    <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">SIMPAN</button>
+                </div>
+            </form>
         </div>
-        <form action="{{ route('admin.galeri.store') }}" method="POST" enctype="multipart/form-data" class="px-6 py-4 space-y-4">
-            @csrf
-            <div>
-                <label class="block text-sm font-medium">Judul Foto</label>
-                <input type="text" name="title_foto_galeri" required class="w-full border rounded px-3 py-2" />
-            </div>
-            <div>
-                <label class="block text-sm font-medium">Tanggal</label>
-                <input type="date" name="tanggal_foto_galeri" required class="w-full border rounded px-3 py-2" />
-            </div>
-            <div>
-                <label class="block text-sm font-medium">Unggah Foto</label>
-                <input type="file" name="foto_galeri" accept="image/*" required class="w-full border rounded px-3 py-2" />
-            </div>
-            <div class="text-right">
-                <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">SIMPAN</button>
-            </div>
-        </form>
     </div>
-</div>
 
-<!-- Modal Update Galeri -->
-<div id="modalUpdate" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-    <div class="bg-white rounded-lg shadow-lg w-full max-w-lg">
-        <div class="bg-green-700 text-white px-6 py-4 flex justify-between items-center rounded-t-lg">
-            <h3 class="text-lg font-bold">UBAH FOTO GALERI</h3>
-            <button onclick="toggleModalUpdate(false)" class="text-xl">&times;</button>
+    <!-- Modal Update Galeri -->
+    <div id="modalUpdate" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-lg">
+            <div class="bg-green-700 text-white px-6 py-4 flex justify-between items-center rounded-t-lg">
+                <h3 class="text-lg font-bold">UBAH FOTO GALERI</h3>
+                <button onclick="toggleModalUpdate(false)" class="text-xl">&times;</button>
+            </div>
+            <form method="POST" id="formUpdateGaleri" enctype="multipart/form-data" class="px-6 py-4 space-y-4">
+                @csrf
+                @method('PUT')
+                <div>
+                    <label class="block text-sm font-medium">Judul Foto</label>
+                    <input type="text" name="title_foto_galeri" id="edit_title" required class="w-full border rounded px-3 py-2" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Tanggal</label>
+                    <input type="date" name="tanggal_foto_galeri" id="edit_tanggal" required class="w-full border rounded px-3 py-2" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Ganti Foto (opsional)</label>
+                    <input type="file" name="foto_galeri" accept="image/*" class="w-full border rounded px-3 py-2" />
+                    <div class="mt-2" id="previewFotoUpdate"></div>
+                </div>
+                <div class="text-right">
+                    <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">SIMPAN PERUBAHAN</button>
+                </div>
+            </form>
         </div>
-        <form method="POST" id="formUpdateGaleri" enctype="multipart/form-data" class="px-6 py-4 space-y-4">
-            @csrf
-            @method('PUT')
-            <div>
-                <label class="block text-sm font-medium">Judul Foto</label>
-                <input type="text" name="title_foto_galeri" id="edit_title" required class="w-full border rounded px-3 py-2" />
-            </div>
-            <div>
-                <label class="block text-sm font-medium">Tanggal</label>
-                <input type="date" name="tanggal_foto_galeri" id="edit_tanggal" required class="w-full border rounded px-3 py-2" />
-            </div>
-            <div>
-                <label class="block text-sm font-medium">Ganti Foto (opsional)</label>
-                <input type="file" name="foto_galeri" accept="image/*" class="w-full border rounded px-3 py-2" />
-                <div class="mt-2" id="previewFotoUpdate"></div>
-            </div>
-            <div class="text-right">
-                <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">SIMPAN PERUBAHAN</button>
-            </div>
-        </form>
     </div>
-</div>
 
 <script>
     function toggleModal(show = true) {
@@ -202,7 +202,6 @@
         toggleModalUpdate(true);
     }
 </script>
-
 
 </body>
 </html>

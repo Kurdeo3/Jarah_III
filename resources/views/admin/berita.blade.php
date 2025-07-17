@@ -117,92 +117,92 @@
     </div>
 </div>
 
-<!-- Modal Tambah Berita -->
-<div id="modalTambah" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-    <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl">
-        <!-- Modal Header -->
-        <div class="bg-green-700 text-white px-6 py-4 flex justify-between items-center rounded-t-lg">
-            <h3 class="text-lg font-bold">TAMBAH DATA BERITA</h3>
-            <button onclick="toggleModal(false)" class="text-xl">&times;</button>
+    <!-- Modal Tambah Berita -->
+    <div id="modalTambah" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl">
+            <!-- Modal Header -->
+            <div class="bg-green-700 text-white px-6 py-4 flex justify-between items-center rounded-t-lg">
+                <h3 class="text-lg font-bold">TAMBAH DATA BERITA</h3>
+                <button onclick="toggleModal(false)" class="text-xl">&times;</button>
+            </div>
+
+            <!-- Modal Form -->
+            <form action="{{ route('admin.berita.store') }}" method="POST" enctype="multipart/form-data" class="px-6 py-4 space-y-4">
+                @csrf
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium">Judul Berita</label>
+                        <input type="text" name="judul_berita" required class="w-full border rounded px-3 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Tanggal Berita</label>
+                        <input type="date" name="tanggal_berita" required class="w-full border rounded px-3 py-2" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Deskripsi</label>
+                    <textarea name="deskripsi_berita" required class="w-full border rounded px-3 py-2"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Foto (Opsional)</label>
+                    <input type="file" name="foto_berita" accept="image/*" class="w-full border rounded px-3 py-2" />
+                </div>
+                <div class="text-sm text-gray-600 italic">*Klik tombol Simpan untuk menyimpan data Berita</div>
+                <div class="text-right">
+                    <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">SIMPAN</button>
+                </div>
+            </form>
+            @if ($errors->any())
+                <div class="bg-red-100 text-red-700 p-4 rounded my-2">
+                    <ul class="list-disc pl-5">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </div>
-
-        <!-- Modal Form -->
-        <form action="{{ route('admin.berita.store') }}" method="POST" enctype="multipart/form-data" class="px-6 py-4 space-y-4">
-            @csrf
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium">Judul Berita</label>
-                    <input type="text" name="judul_berita" required class="w-full border rounded px-3 py-2" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium">Tanggal Berita</label>
-                    <input type="date" name="tanggal_berita" required class="w-full border rounded px-3 py-2" />
-                </div>
-            </div>
-            <div>
-                <label class="block text-sm font-medium">Deskripsi</label>
-                <textarea name="deskripsi_berita" required class="w-full border rounded px-3 py-2"></textarea>
-            </div>
-            <div>
-                <label class="block text-sm font-medium">Foto (Opsional)</label>
-                <input type="file" name="foto_berita" accept="image/*" class="w-full border rounded px-3 py-2" />
-            </div>
-            <div class="text-sm text-gray-600 italic">*Klik tombol Simpan untuk menyimpan data Berita</div>
-            <div class="text-right">
-                <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">SIMPAN</button>
-            </div>
-        </form>
-        @if ($errors->any())
-            <div class="bg-red-100 text-red-700 p-4 rounded my-2">
-                <ul class="list-disc pl-5">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
     </div>
-</div>
 
-<!-- Modal Update Berita -->
-<div id="modalUpdate" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-    <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl">
-        <!-- Modal Header -->
-        <div class="bg-green-700 text-white px-6 py-4 flex justify-between items-center rounded-t-lg">
-            <h3 class="text-lg font-bold">UBAH DATA BERITA</h3>
-            <button onclick="toggleModalUpdate(false)" class="text-xl">&times;</button>
+    <!-- Modal Update Berita -->
+    <div id="modalUpdate" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl">
+            <!-- Modal Header -->
+            <div class="bg-green-700 text-white px-6 py-4 flex justify-between items-center rounded-t-lg">
+                <h3 class="text-lg font-bold">UBAH DATA BERITA</h3>
+                <button onclick="toggleModalUpdate(false)" class="text-xl">&times;</button>
+            </div>
+
+            <!-- Modal Form -->
+            <form method="POST" id="formUpdateBerita" enctype="multipart/form-data" class="px-6 py-4 space-y-4">
+                @csrf
+                @method('PUT')
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium">Judul Berita</label>
+                        <input type="text" name="judul_berita" id="edit_judul" required class="w-full border rounded px-3 py-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Tanggal Berita</label>
+                        <input type="date" name="tanggal_berita" id="edit_tanggal" required class="w-full border rounded px-3 py-2" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Deskripsi</label>
+                    <textarea name="deskripsi_berita" id="edit_deskripsi" required class="w-full border rounded px-3 py-2"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Ganti Foto (Opsional)</label>
+                    <input type="file" name="foto_berita" accept="image/*" class="w-full border rounded px-3 py-2" />
+                    <div class="mt-2" id="previewFotoUpdate"></div>
+                </div>
+                <div class="text-sm text-gray-600 italic">*Klik tombol Simpan untuk menyimpan perubahan data</div>
+                <div class="text-right">
+                    <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">SIMPAN PERUBAHAN</button>
+                </div>
+            </form>
         </div>
-
-        <!-- Modal Form -->
-        <form method="POST" id="formUpdateBerita" enctype="multipart/form-data" class="px-6 py-4 space-y-4">
-            @csrf
-            @method('PUT')
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium">Judul Berita</label>
-                    <input type="text" name="judul_berita" id="edit_judul" required class="w-full border rounded px-3 py-2" />
-                </div>
-                <div>
-                    <label class="block text-sm font-medium">Tanggal Berita</label>
-                    <input type="date" name="tanggal_berita" id="edit_tanggal" required class="w-full border rounded px-3 py-2" />
-                </div>
-            </div>
-            <div>
-                <label class="block text-sm font-medium">Deskripsi</label>
-                <textarea name="deskripsi_berita" id="edit_deskripsi" required class="w-full border rounded px-3 py-2"></textarea>
-            </div>
-            <div>
-                <label class="block text-sm font-medium">Ganti Foto (Opsional)</label>
-                <input type="file" name="foto_berita" accept="image/*" class="w-full border rounded px-3 py-2" />
-                <div class="mt-2" id="previewFotoUpdate"></div>
-            </div>
-            <div class="text-sm text-gray-600 italic">*Klik tombol Simpan untuk menyimpan perubahan data</div>
-            <div class="text-right">
-                <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">SIMPAN PERUBAHAN</button>
-            </div>
-        </form>
     </div>
-</div>
 
 <!-- Script Modal -->
 <script>

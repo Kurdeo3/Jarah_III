@@ -581,7 +581,7 @@
         }
     });
 
-    // Script yang sudah ada untuk header
+    //Script untuk Header
     const header = document.getElementById("mainHeader");
     const navLinks = document.querySelectorAll(".nav-item");
     const toggle = document.getElementById("toggleMenu");

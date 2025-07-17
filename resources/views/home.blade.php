@@ -325,157 +325,156 @@
     </section>
 
     <section class="bg-[#006400] py-12 text-white text-center">
-    <h2 class="text-3xl font-bold mb-8">BERITA</h2>
-        <div class="relative max-w-7xl mx-auto px-4">
-        <button id="newsPrev" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white text-[#77784A] p-2 rounded-full z-30">
-            &#8592;
-        </button>
-        
-        <div id="newsCarousel" class="relative flex justify-center items-center h-[420px] w-full overflow-hidden">
-            @if($beritaTerbaru->count() > 0)
-                <!-- Card Berita 1 -->
-                <div class="news-card absolute w-72 transition-all duration-500 ease-in-out bg-white text-gray-800 p-4 rounded-lg shadow">
-                    <img src="{{ $beritaTerbaru[0]->foto_berita ? asset('storage/' . $beritaTerbaru[0]->foto_berita) : 'https://via.placeholder.com/300x160' }}" class="rounded-lg h-60 w-full object-cover mb-2">
-                    <p class="text-xs text-gray-500">{{ \Carbon\Carbon::parse($beritaTerbaru[0]->created_at)->format('d M Y') }}</p>
-                    <h3 class="font-bold">{{ $beritaTerbaru[0]->judul_berita }}</h3>
-                    <p class="text-sm mt-1">{{ Str::limit($beritaTerbaru[0]->konten, 50) }}</p>
-                    <a href="{{ route('showBeritaDetailPage', $beritaTerbaru[0]->id) }}" class="text-sm text-green-700 font-semibold">Baca selengkapnya →</a>
-                </div>
-            @endif
+        <h2 class="text-3xl font-bold mb-8">BERITA</h2>
+            <div class="relative max-w-7xl mx-auto px-4">
+            <button id="newsPrev" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white text-[#77784A] p-2 rounded-full z-30">
+                &#8592;
+            </button>
+            
+            <div id="newsCarousel" class="relative flex justify-center items-center h-[420px] w-full overflow-hidden">
+                @if($beritaTerbaru->count() > 0)
+                    <!-- Card Berita 1 -->
+                    <div class="news-card absolute w-72 transition-all duration-500 ease-in-out bg-white text-gray-800 p-4 rounded-lg shadow">
+                        <img src="{{ $beritaTerbaru[0]->foto_berita ? asset('storage/' . $beritaTerbaru[0]->foto_berita) : 'https://via.placeholder.com/300x160' }}" class="rounded-lg h-60 w-full object-cover mb-2">
+                        <p class="text-xs text-gray-500">{{ \Carbon\Carbon::parse($beritaTerbaru[0]->created_at)->format('d M Y') }}</p>
+                        <h3 class="font-bold">{{ $beritaTerbaru[0]->judul_berita }}</h3>
+                        <p class="text-sm mt-1">{{ Str::limit($beritaTerbaru[0]->konten, 50) }}</p>
+                        <a href="{{ route('showBeritaDetailPage', $beritaTerbaru[0]->id) }}" class="text-sm text-green-700 font-semibold">Baca selengkapnya →</a>
+                    </div>
+                @endif
 
-            @if($beritaTerbaru->count() > 1)
-                <!-- Card Berita 2 -->
-                <div class="news-card absolute w-72 transition-all duration-500 ease-in-out bg-white text-gray-800 p-4 rounded-lg shadow">
-                    <img src="{{ $beritaTerbaru[1]->foto_berita ? asset('storage/' . $beritaTerbaru[1]->foto_berita) : 'https://via.placeholder.com/300x160' }}" class="rounded-lg h-60 w-full object-cover mb-2">
-                    <p class="text-xs text-gray-500">{{ \Carbon\Carbon::parse($beritaTerbaru[1]->created_at)->format('d M Y') }}</p>
-                    <h3 class="font-bold">{{ $beritaTerbaru[1]->judul_berita }}</h3>
-                    <p class="text-sm mt-1">{{ Str::limit($beritaTerbaru[1]->konten, 50) }}</p>
-                    <a href="{{ route('showBeritaDetailPage', $beritaTerbaru[1]->id) }}" class="text-sm text-green-700 font-semibold">Baca selengkapnya →</a>
-                </div>
-            @endif
+                @if($beritaTerbaru->count() > 1)
+                    <!-- Card Berita 2 -->
+                    <div class="news-card absolute w-72 transition-all duration-500 ease-in-out bg-white text-gray-800 p-4 rounded-lg shadow">
+                        <img src="{{ $beritaTerbaru[1]->foto_berita ? asset('storage/' . $beritaTerbaru[1]->foto_berita) : 'https://via.placeholder.com/300x160' }}" class="rounded-lg h-60 w-full object-cover mb-2">
+                        <p class="text-xs text-gray-500">{{ \Carbon\Carbon::parse($beritaTerbaru[1]->created_at)->format('d M Y') }}</p>
+                        <h3 class="font-bold">{{ $beritaTerbaru[1]->judul_berita }}</h3>
+                        <p class="text-sm mt-1">{{ Str::limit($beritaTerbaru[1]->konten, 50) }}</p>
+                        <a href="{{ route('showBeritaDetailPage', $beritaTerbaru[1]->id) }}" class="text-sm text-green-700 font-semibold">Baca selengkapnya →</a>
+                    </div>
+                @endif
 
-            @if($beritaTerbaru->count() > 2)
-                <!-- Card Berita 3 -->
-                <div class="news-card absolute w-72 transition-all duration-500 ease-in-out bg-white text-gray-800 p-4 rounded-lg shadow">
-                    <img src="{{ $beritaTerbaru[2]->foto_berita ? asset('storage/' . $beritaTerbaru[2]->foto_berita) : 'https://via.placeholder.com/300x160' }}" class="rounded-lg h-60 w-full object-cover mb-2">
-                    <p class="text-xs text-gray-500">{{ \Carbon\Carbon::parse($beritaTerbaru[2]->created_at)->format('d M Y') }}</p>
-                    <h3 class="font-bold">{{ $beritaTerbaru[2]->judul_berita }}</h3>
-                    <p class="text-sm mt-1">{{ Str::limit($beritaTerbaru[2]->konten, 50) }}</p>
-                    <a href="{{ route('showBeritaDetailPage', $beritaTerbaru[2]->id) }}" class="text-sm text-green-700 font-semibold">Baca selengkapnya →</a>
-                </div>
-            @endif
-        </div>
+                @if($beritaTerbaru->count() > 2)
+                    <!-- Card Berita 3 -->
+                    <div class="news-card absolute w-72 transition-all duration-500 ease-in-out bg-white text-gray-800 p-4 rounded-lg shadow">
+                        <img src="{{ $beritaTerbaru[2]->foto_berita ? asset('storage/' . $beritaTerbaru[2]->foto_berita) : 'https://via.placeholder.com/300x160' }}" class="rounded-lg h-60 w-full object-cover mb-2">
+                        <p class="text-xs text-gray-500">{{ \Carbon\Carbon::parse($beritaTerbaru[2]->created_at)->format('d M Y') }}</p>
+                        <h3 class="font-bold">{{ $beritaTerbaru[2]->judul_berita }}</h3>
+                        <p class="text-sm mt-1">{{ Str::limit($beritaTerbaru[2]->konten, 50) }}</p>
+                        <a href="{{ route('showBeritaDetailPage', $beritaTerbaru[2]->id) }}" class="text-sm text-green-700 font-semibold">Baca selengkapnya →</a>
+                    </div>
+                @endif
+            </div>
 
-        <button id="newsNext" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white text-[#77784A] p-2 rounded-full z-30">
-            &#8594;
-        </button>
+            <button id="newsNext" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white text-[#77784A] p-2 rounded-full z-30">
+                &#8594;
+            </button>
 
-        <p class="text-sm text-white mt-4">Berita terbaru tentang Padukuhan Jarah III bisa dibaca disini</p>
-        </div>
-</section>
+            <p class="text-sm text-white mt-4">Berita terbaru tentang Padukuhan Jarah III bisa dibaca disini</p>
+            </div>
+    </section>
 
-<!-- Section Galeri -->
-<section class="bg-gray-100 py-12 px-4 md:px-8">
-    <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold text-green-800">GALERI</h2>
-            <p class="mt-2 text-sm text-gray-600 max-w-lg mx-auto">
-                Dokumentasi kegiatan dan momen berharga di Padukuhan Jarah III
-            </p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            @if($galeriTerbaru->count() > 0)
-                @foreach($galeriTerbaru as $galeri)
-                    <div class="aspect-square rounded-xl overflow-hidden shadow-lg relative group">
-                            <img src="{{ asset('storage/' . $galeri->foto_galeri) }}"
-                                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                alt="{{ $galeri->title_foto_galeri }}" />
-                            <div
-                                class="absolute inset-0 bg-[rgba(0,128,0,0.65)] opacity-0 group-hover:opacity-80 transition-opacity duration-300 flex flex-col justify-center items-center text-white px-2 text-center">
-                                <h3 class="text-lg font-bold">{{ $galeri->title_foto_galeri }}</h3>
-                                <p class="text-sm">{{ \Carbon\Carbon::parse($galeri->tanggal_foto_galeri)->translatedFormat('d F Y') }}</p>
+    <!-- Section Galeri -->
+    <section class="bg-gray-100 py-12 px-4 md:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-green-800">GALERI</h2>
+                <p class="mt-2 text-sm text-gray-600 max-w-lg mx-auto">
+                    Dokumentasi kegiatan dan momen berharga di Padukuhan Jarah III
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                @if($galeriTerbaru->count() > 0)
+                    @foreach($galeriTerbaru as $galeri)
+                        <div class="aspect-square rounded-xl overflow-hidden shadow-lg relative group">
+                                <img src="{{ asset('storage/' . $galeri->foto_galeri) }}"
+                                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                    alt="{{ $galeri->title_foto_galeri }}" />
+                                <div
+                                    class="absolute inset-0 bg-[rgba(0,128,0,0.65)] opacity-0 group-hover:opacity-80 transition-opacity duration-300 flex flex-col justify-center items-center text-white px-2 text-center">
+                                    <h3 class="text-lg font-bold">{{ $galeri->title_foto_galeri }}</h3>
+                                    <p class="text-sm">{{ \Carbon\Carbon::parse($galeri->tanggal_foto_galeri)->translatedFormat('d F Y') }}</p>
+                                </div>
+                            </div>
+                    @endforeach
+                @else
+                    @for($i = 1; $i <= 4; $i++)
+                        <div class="aspect-square rounded-xl overflow-hidden shadow-lg relative group">
+                            <img src="https://via.placeholder.com/300x300" 
+                                alt="Galeri {{ $i }}" 
+                                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-[rgba(0,128,0,0.65)] opacity-0 group-hover:opacity-80 transition-opacity duration-300 flex flex-col justify-center items-center text-white px-2 text-center">
+                                <h3 class="text-lg font-bold">Galeri {{ $i }}</h3>
+                                <p class="text-sm">{{ date('d F Y') }}</p>
                             </div>
                         </div>
-                @endforeach
-            @else
-                @for($i = 1; $i <= 4; $i++)
-                    <div class="aspect-square rounded-xl overflow-hidden shadow-lg relative group">
-                        <img src="https://via.placeholder.com/300x300" 
-                             alt="Galeri {{ $i }}" 
-                             class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-[rgba(0,128,0,0.65)] opacity-0 group-hover:opacity-80 transition-opacity duration-300 flex flex-col justify-center items-center text-white px-2 text-center">
-                            <h3 class="text-lg font-bold">Galeri {{ $i }}</h3>
-                            <p class="text-sm">{{ date('d F Y') }}</p>
-                        </div>
-                    </div>
-                @endfor
-            @endif
+                    @endfor
+                @endif
+            </div>
+            
+            <div class="text-center mt-8">
+                <a href="{{ url('/profile') }}" class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors duration-300">
+                    Lihat Semua Galeri
+                </a>
+            </div>
         </div>
-        
-        <div class="text-center mt-8">
-            <a href="{{ url('/profile') }}" 
-               class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors duration-300">
-                Lihat Semua Galeri
-            </a>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- Section UMKM -->
-<section class="bg-[#006400] py-12 px-4 md:px-8 text-white">
-    <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold">UMKM JARAH III</h2>
-            <p class="mt-2 text-sm max-w-lg mx-auto">
-                Produk dan layanan unggulan dari masyarakat Padukuhan Jarah III
-            </p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            @if($umkmTerbaru->count() > 0)
-                @foreach($umkmTerbaru as $umkm)
-                    <div class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-                        <div class="h-48 overflow-hidden">
-                            <img src="{{ $umkm->foto_umkm ? asset('storage/' . $umkm->foto_umkm) : 'https://via.placeholder.com/300x200' }}" 
-                                alt="{{ $umkm->nama_umkm }}" 
-                                class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
-                        </div>
-                        <div class="p-4 mx-auto text-center">
-                            <h3 class="font-bold text-lg text-green-800 mb-2">{{ $umkm->nama_umkm }}</h3>
-                            <span class="text-sm text-gray-500">{{ $umkm->nama_pemilik_umkm }}</span>
-                        </div>
-                    </div>
-                @endforeach
-            @else
-                @for($i = 1; $i <= 4; $i++)
-                    <div class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-                        <div class="h-48 overflow-hidden">
-                            <img src="https://via.placeholder.com/300x200" 
-                                 alt="UMKM {{ $i }}" 
-                                 class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
-                        </div>
-                        <div class="p-4">
-                            <h3 class="font-bold text-lg text-green-800 mb-2">UMKM {{ $i }}</h3>
-                            <p class="text-sm text-gray-600 mb-2">Deskripsi produk atau layanan UMKM dari masyarakat setempat</p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-green-600 font-semibold">Kategori</span>
-                                <span class="text-sm text-gray-500">Pemilik</span>
+    <!-- Section UMKM -->
+    <section class="bg-[#006400] py-12 px-4 md:px-8 text-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold">UMKM JARAH III</h2>
+                <p class="mt-2 text-sm max-w-lg mx-auto">
+                    Produk dan layanan unggulan dari masyarakat Padukuhan Jarah III
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                @if($umkmTerbaru->count() > 0)
+                    @foreach($umkmTerbaru as $umkm)
+                        <div class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                            <div class="h-48 overflow-hidden">
+                                <img src="{{ $umkm->foto_umkm ? asset('storage/' . $umkm->foto_umkm) : 'https://via.placeholder.com/300x200' }}" 
+                                    alt="{{ $umkm->nama_umkm }}" 
+                                    class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                            </div>
+                            <div class="p-4 mx-auto text-center">
+                                <h3 class="font-bold text-lg text-green-800 mb-2">{{ $umkm->nama_umkm }}</h3>
+                                <span class="text-sm text-gray-500">{{ $umkm->nama_pemilik_umkm }}</span>
                             </div>
                         </div>
-                    </div>
-                @endfor
-            @endif
+                    @endforeach
+                @else
+                    @for($i = 1; $i <= 4; $i++)
+                        <div class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                            <div class="h-48 overflow-hidden">
+                                <img src="https://via.placeholder.com/300x200" 
+                                    alt="UMKM {{ $i }}" 
+                                    class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-bold text-lg text-green-800 mb-2">UMKM {{ $i }}</h3>
+                                <p class="text-sm text-gray-600 mb-2">Deskripsi produk atau layanan UMKM dari masyarakat setempat</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-green-600 font-semibold">Kategori</span>
+                                    <span class="text-sm text-gray-500">Pemilik</span>
+                                </div>
+                            </div>
+                        </div>
+                    @endfor
+                @endif
+            </div>
+            
+            <div class="text-center mt-8">
+                <a href="{{ url('/umkm') }}" 
+                class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors duration-300">
+                    Lihat Semua UMKM
+                </a>
+            </div>
         </div>
-        
-        <div class="text-center mt-8">
-            <a href="{{ url('/umkm') }}" 
-               class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors duration-300">
-                Lihat Semua UMKM
-            </a>
-        </div>
-    </div>
-</section>
+    </section>
     
     <section class="bg-white py-12 px-4 md:px-8">
     <div class="max-w-5xl mx-auto text-center">
@@ -484,17 +483,6 @@
         <h2 class="text-3xl font-bold text-green-800">PETA JARAH III</h2>
         </div>
         <p class="text-sm text-gray-600 mb-6">Menampilkan Peta Desa Jarah III</p>
-        <!-- <div class="w-full h-[450px] rounded-xl overflow-hidden shadow-lg border border-gray-200">
-        <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.242173635606!2d110.6484506143213!3d-7.871349978129355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7ba86a6ebbb139%3A0xc6c4e81895a66c62!2sDusun%20Jarah%20III%2C%20Banjarejo%2C%20Tanjungsari%2C%20Gunungkidul%2C%20Daerah%20Istimewa%20Yogyakarta!5e0!3m2!1sid!2sid!4v1720104408206!5m2!1sid!2sid"
-            width="100%"
-            height="100%"
-            style="border:0;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-        </div> -->
         <div class="flex justify-center">
             <img src="{{ asset('storage/Assets/PETA_JARAHIII.jpg') }}"
                 class="w-full max-w-md sm:max-w-sm md:max-w-md lg:max-w-2xl h-auto rounded-lg shadow">
@@ -506,7 +494,6 @@
     <footer class="footer-gradient footer-wave text-white pt-12 pb-0 relative">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Logo dan Info -->
                 <div class="footer-section">
                     <div class="flex items-center space-x-4 mb-4">
                         <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center font-bold text-white text-sm logo-glow border-2 border-white/20">
@@ -716,6 +703,5 @@
         });
     });
 </script>
-
 
 </html>

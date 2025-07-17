@@ -16,11 +16,6 @@ class PendudukController extends Controller
         }
     }
 
-    // public function index()
-    // {
-    //     return Penduduk::all();
-    // }
-
     public function index()
     {
         $this->isAuthenticated(); 

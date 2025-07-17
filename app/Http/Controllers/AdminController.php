@@ -94,10 +94,10 @@ class AdminController extends Controller
     }
 
     public function home(){
-    $beritaTerbaru = Berita::latest()->take(3)->get();
-    $galeriTerbaru = Galeri::latest()->take(4)->get();
-    $umkmTerbaru = Umkm::latest()->take(4)->get();
-    
-    return view('home', compact('beritaTerbaru', 'galeriTerbaru', 'umkmTerbaru'));
-}
+        $beritaTerbaru = Berita::latest()->take(3)->get();
+        $galeriTerbaru = Galeri::latest()->take(4)->get();
+        $umkmTerbaru = Umkm::latest()->take(4)->get();
+        
+        return view('home', compact('beritaTerbaru', 'galeriTerbaru', 'umkmTerbaru'));
+    }
 }
