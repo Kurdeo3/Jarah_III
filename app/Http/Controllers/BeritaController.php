@@ -16,11 +16,20 @@ class BeritaController extends Controller
         }
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $this->isAuthenticated();
 
-        $beritas = Berita::all();
+        $query = Berita::query();
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('judul_berita', 'like', "%{$search}%");
+            });
+        }
+
+        $beritas = $query->paginate(10)->withQueryString();
         $admin = Auth::guard('admin')->user();
 
         return view('admin.berita', compact('beritas', 'admin'));

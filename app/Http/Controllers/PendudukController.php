@@ -16,11 +16,21 @@ class PendudukController extends Controller
         }
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $this->isAuthenticated(); 
 
-        $penduduks = Penduduk::paginate(10);
+        $query = Penduduk::query();
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_penduduk', 'like', "%{$search}%")
+                ->orWhere('jenis_kelamin_penduduk', 'like', "%{$search}%");
+            });
+        }
+
+        $penduduks = $query->paginate(10);
         $admin = Auth::guard('admin')->user();
 
         return view('admin.penduduk', compact('penduduks', 'admin'));

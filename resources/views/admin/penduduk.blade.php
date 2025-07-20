@@ -18,34 +18,18 @@
 
         <nav class="flex-1 py-6">
             <ul class="space-y-2 px-4">
-                <li>
-                    <a href="{{ url('/admin/dashboard') }}" class="block py-2 px-4 rounded hover:bg-green-700 transition-colors">
-                        Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ url('/admin/penduduk') }}" class="block py-2 px-4 rounded hover:bg-green-700 transition-colors bg-green-700">
-                        Penduduk
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ url('/admin/berita') }}" class="block py-2 px-4 rounded hover:bg-green-700 transition-colors">Berita</a>
-                </li>
-                <li>
-                    <a href="{{ url('/admin/umkm') }}" class="block py-2 px-4 rounded hover:bg-green-700 transition-colors">UMKM</a>
-                </li>
-                <li>
-                    <a href="{{ url('/admin/galeri') }}" class="block py-2 px-4 rounded hover:bg-green-700 transition-colors">Galeri</a>
-                </li>
+                <li><a href="{{ url('/admin/dashboard') }}" class="block py-2 px-4 rounded hover:bg-green-700 transition-colors">Dashboard</a></li>
+                <li><a href="{{ url('/admin/penduduk') }}" class="block py-2 px-4 rounded hover:bg-green-700 transition-colors bg-green-700">Penduduk</a></li>
+                <li><a href="{{ url('/admin/berita') }}" class="block py-2 px-4 rounded hover:bg-green-700 transition-colors">Berita</a></li>
+                <li><a href="{{ url('/admin/umkm') }}" class="block py-2 px-4 rounded hover:bg-green-700 transition-colors">UMKM</a></li>
+                <li><a href="{{ url('/admin/galeri') }}" class="block py-2 px-4 rounded hover:bg-green-700 transition-colors">Galeri</a></li>
             </ul>
         </nav>
 
         <div class="p-4">
             <form method="POST" action="{{ route('admin.logout') }}">
                 @csrf
-                <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition-colors">
-                    Logout
-                </button>
+                <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition-colors">Logout</button>
             </form>
         </div>
     </div>
@@ -69,83 +53,93 @@
         </header>
 
         @if (session('success'))
-            <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
+            <div class="m-6 p-4 bg-green-100 text-green-800 rounded">
                 {{ session('success') }}
             </div>
         @endif
 
-        <!-- Table & Button -->
+        <!-- Table & Search -->
         <main class="flex-1 p-6">
             <div class="bg-white shadow-md rounded-lg p-4">
-                <div class="flex justify-between items-center mb-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
                     <h2 class="text-lg font-semibold">List Daftar Penduduk Jarah III</h2>
+                    <div class="flex flex-row gap-4">
+                        <form method="GET" action="{{ route('admin.penduduk') }}" class="flex gap-2">
+                        <input type="text" name="search" placeholder="Cari nama / jenis kelamin" value="{{ request('search') }}"
+                                class="border border-gray-300 rounded px-3 py-1 text-sm w-64">
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded text-sm">Cari</button>
+                        @if(request('search'))
+                            <a href="{{ route('admin.penduduk') }}" class="text-red-500 text-sm ml-2 hover:underline">Reset</a>
+                        @endif
+                    </form>
+
                     <button onclick="toggleModal(true)" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                         </svg>
                         Tambah Data
                     </button>
+                    </div>
                 </div>
 
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-600">
                         <thead class="text-xs uppercase bg-gray-100 text-gray-700">
-                        <tr>
-                            <th class="px-4 py-2">No</th>
-                            <th class="px-4 py-2">Nama</th>
-                            <th class="px-4 py-2">Jenis Kelamin</th>
-                            <th class="px-4 py-2">Usia</th>
-                            <th class="px-4 py-2">Alamat</th>
-                            <th class="px-4 py-2">No Telepon</th>
-                            <th class="px-4 py-2">Aksi</th>
-                        </tr>
+                            <tr>
+                                <th class="px-4 py-2">No</th>
+                                <th class="px-4 py-2">Nama</th>
+                                <th class="px-4 py-2">Jenis Kelamin</th>
+                                <th class="px-4 py-2">Usia</th>
+                                <th class="px-4 py-2">Alamat</th>
+                                <th class="px-4 py-2">No Telepon</th>
+                                <th class="px-4 py-2">Aksi</th>
+                            </tr>
                         </thead>
                         <tbody>
                         @forelse ($penduduks as $index => $penduduk)
                             <tr class="bg-white border-b">
                                 <td class="px-4 py-2">{{ $index + 1 }}</td>
-                                <!-- <td class="px-4 py-2">{{ $penduduk->id }}</td> -->
                                 <td class="px-4 py-2">{{ $penduduk->nama_penduduk }}</td>
                                 <td class="px-4 py-2">{{ $penduduk->jenis_kelamin_penduduk }}</td>
                                 <td class="px-4 py-2">{{ $penduduk->umur_penduduk }}</td>
                                 <td class="px-4 py-2">{{ $penduduk->alamat_penduduk }}</td>
                                 <td class="px-4 py-2">{{ $penduduk->no_telp_penduduk }}</td>
                                 <td class="px-4 py-2 flex gap-2">
-                                    <button
-                                        onclick="openUpdateModal({
-                                            id: {{ $penduduk->id }},
-                                            nama_penduduk: '{{ $penduduk->nama_penduduk }}',
-                                            jenis_kelamin_penduduk: '{{ $penduduk->jenis_kelamin_penduduk }}',
-                                            umur_penduduk: '{{ $penduduk->umur_penduduk }}',
-                                            alamat_penduduk: `{{ $penduduk->alamat_penduduk }}`,
-                                            no_telp_penduduk: `{{ $penduduk->no_telp_penduduk }}`
-                                        })"
-                                        class="text-green-600 hover:text-green-800"
-                                    >
-                                        <!-- Icon Edit -->
-                                        <img width="30" height="30" src="https://img.icons8.com/plasticine/100/create-new.png" alt="create-new" class="w-[30px] h-[30px] min-w-[30px] min-h-[30px]"/>
+                                    <!-- Edit button -->
+                                    <button onclick="openUpdateModal({
+                                        id: {{ $penduduk->id }},
+                                        nama_penduduk: '{{ $penduduk->nama_penduduk }}',
+                                        jenis_kelamin_penduduk: '{{ $penduduk->jenis_kelamin_penduduk }}',
+                                        umur_penduduk: '{{ $penduduk->umur_penduduk }}',
+                                        alamat_penduduk: `{{ $penduduk->alamat_penduduk }}`,
+                                        no_telp_penduduk: `{{ $penduduk->no_telp_penduduk }}`
+                                    })" class="text-green-600 hover:text-green-800">
+                                        <img width="30" height="30" src="https://img.icons8.com/plasticine/100/create-new.png" alt="create-new" />
                                     </button>
+
+                                    <!-- Delete form -->
                                     <form action="{{ route('admin.penduduk.destroy', $penduduk->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-red-800">
-                                            <!-- Icon Hapus -->
-                                            <img src="https://img.icons8.com/stickers/100/trash.png" alt="trash" class="w-[30px] h-[30px] min-w-[30px] min-h-[30px]" />
+                                            <img src="https://img.icons8.com/stickers/100/trash.png" alt="trash" class="w-[30px] h-[30px]" />
                                         </button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center py-4 text-gray-500">Tidak ada data.</td>
+                                <td colspan="7" class="text-center py-4 text-gray-500">
+                                    Tidak ada data ditemukan{{ request('search') ? ' untuk pencarian: "' . request('search') . '"' : '' }}.
+                                </td>
                             </tr>
                         @endforelse
                         </tbody>
                     </table>
-                        <!-- Pagination -->
-                        <div class="mt-8">
-                            {{ $penduduks->links() }}
-                        </div>
+
+                    <div class="mt-6">
+                        {{ $penduduks->withQueryString()->links() }}
+                    </div>
                 </div>
             </div>
         </main>

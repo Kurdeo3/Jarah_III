@@ -59,12 +59,23 @@
             <div class="bg-white shadow-md rounded-lg p-4">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-lg font-semibold">Daftar UMKM</h2>
-                    <button onclick="toggleModal(true)" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                        </svg>
-                        Tambah UMKM
-                    </button>
+                    <div class="flex flex-row gap-4">
+                        <form method="GET" action="{{ route('admin.umkm') }}" class="flex gap-2">
+                            <input type="text" name="search" placeholder="Cari nama umkm" value="{{ request('search') }}"
+                                class="border border-gray-300 rounded px-3 py-1 text-sm w-64">
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded text-sm">Cari</button>
+                            @if(request('search'))
+                                <a href="{{ route('admin.umkm') }}" class="text-red-500 text-sm ml-2 hover:underline">Reset</a>
+                            @endif
+                        </form>
+
+                        <button onclick="toggleModal(true)" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                            Tambah UMKM
+                        </button>
+                    </div>
                 </div>
 
                 <div class="overflow-x-auto">
@@ -109,10 +120,18 @@
                                 </td>
                             </tr>
                         @empty
-                            <tr><td colspan="7" class="text-center py-4 text-gray-500">Tidak ada data UMKM.</td></tr>
+                        <tr>
+                            <td colspan="6" class="text-center py-4 text-gray-500">
+                                Tidak ada produk umkm{{ request('search') ? ' untuk pencarian "' . request('search') . '"' : '' }}.
+                            </td>
+                        </tr>
                         @endforelse
                         </tbody>
                     </table>
+
+                    <div class="mt-4">
+                        {{ $umkms->links() }}
+                    </div>
                 </div>
             </div>
         </main>

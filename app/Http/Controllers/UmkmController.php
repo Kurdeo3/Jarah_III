@@ -17,11 +17,20 @@ class UmkmController extends Controller
         }
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $this->isAuthenticated();
 
-        $umkms = Umkm::all();
+        $query = Umkm::query();
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_umkm', 'like', "%{$search}%");
+            });
+        }
+
+        $umkms = $query->paginate(10)->withQueryString();
         $admin = Auth::guard('admin')->user();
 
         return view('admin.umkm', compact('umkms', 'admin'));
